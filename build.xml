@@ -74,7 +74,7 @@
           target: go
                     Go ivy, go!
          ================================= -->
-    <target name="go" depends="install-ivy, generate-src" description="--&gt; resolve dependencies, compile and run the project">
+    <target name="go" depends="install-ivy" description="--&gt; resolve dependencies, compile and run the project">
 		<echo message="using ivy to resolve commons-lang 2.1..."/>
         <!-- here comes the magic line: asks ivy to resolve a dependency on 
              commons-lang 2.1 and to build an ant path with it from its cache  -->
@@ -95,14 +95,18 @@ Let's go!
             </classpath>
         </java>
     </target>
-
+	
+    <target name="report" depends="go"/>
+	<mkdir dir="${report.dir}"/>
+	<ivy:report todir="report" />
+    </target>
 	<!-- ================================= 
           target: generate-src
             'Generates' the class source. It actually just echo a simple java 
             source code to a file. In real life this file would already be
             present on your file system, and this target wouldn't be necessary.
          ================================= -->
-    <target name="generate-src">
+<!--    <target name="generate-src">
         <mkdir dir="${src.dir}/example"/>
         <echo file="${src.dir}/example/Hello.java">
 package example;
@@ -119,7 +123,7 @@ public class Hello {
 }
         </echo>
     </target>
-	
+-->	
     <!-- ================================= 
           target: clean              
          ================================= -->
